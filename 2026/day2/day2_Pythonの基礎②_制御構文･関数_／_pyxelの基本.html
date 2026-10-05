@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>day2 Pythonの基礎② 制御構文･関数 ／ pyxelの基本</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-python.min.js"></script>
+</head>
+
+<body for="html-export" data-header-base-path="../">
+    <div id="pagetop"></div>
+    <div class="crossnote markdown-preview">
+
+        <h1 id="maintitle">day2 Pythonの基礎② 制御構文･関数 ／ pyxelの基本</h1>
+        <p>プログラムは基本的に上から下に順番に実行されるけど、それだけだと一本道の単純な処理しかできない。時には「もし〇〇だったら、この処理をする」「この処理を10回繰り返す」のように、<strong>処理の流れをコントロールする(制御する)</strong>必要がある。</p>
+        <p>これを可能にするのがpythonの<strong>制御構文</strong>。</p>
+
+        <h1 id="1-制御構文①-if-もし〜なら">1. 制御構文①: <code>&lt;if&gt;(イフ)</code> もし〜なら (条件分岐)</h1>
+        <p><img class="img_top" src="img/day2_top.png" alt="day2のトップ画像"></p>
+        <p>例えば、エアコンの新機能を作るとする。室内を最適な温度に保ちたいわけだけど、いちいち温度設定をしたり、冷房と暖房を切り替えたりするのがめんどくさい！ていう悩みを解決してみよう。</p>
+
+        <h2 id="プログラムを日本語で表現してみよう">プログラムを日本語で表現してみよう</h2>
+        <p>今回書きたいコードを日本語で表現してみると、こんな感じ</p>
+        <pre data-role="codeBlock" data-info="" class="language-text"><code>もし　外の気温が　２５度以上だったら
+　　「冷房オン」とprint
+そうじゃなくて　外の気温が　１０度以下だったら
+　　「暖房オン」とprint
+どっちでもなかったとき
+　　「電源オフ」とprint
+</code></pre>
+
+        <h2 id="if--もし〜なら">if = 「もし〜なら」</h2>
+        <p>ifを使った条件分岐の書き方はこんな感じ</p>
+        <pre data-role="codeBlock" data-info="python" class="language-python python"><code>if 条件:
+    やりたいこと
+</code></pre>
+        <p>今回の場合、この「条件」のところに「外の気温が　２５度以上だったら」などの条件が入るわけだけど、その部分をどう書くかが問題。</p>
+        <p>「２５」という指定された数字と、実際の外の気温を比較する必要がある。</p>
+
+        <h2 id="比較演算子">比較演算子</h2>
+        <p>算数・数学でいうところの大なり（＞）とか小なり（＜）のプログラミング版の書き方。</p>
+        <table>
+            <tr>
+                <th>比較演算子</th>
+                <th>意味</th>
+            </tr>
+            <tr>
+                <td><strong>==</strong></td>
+                <td>等しい (イコールふたつ！)</td>
+            </tr>
+            <tr>
+                <td><strong>!=</strong></td>
+                <td>等しくない</td>
+            </tr>
+            <tr>
+                <td><strong>&gt;</strong></td>
+                <td>より大きい</td>
+            </tr>
+            <tr>
+                <td><strong>&lt;</strong></td>
+                <td>より小さい・未満</td>
+            </tr>
+            <tr>
+                <td><strong>&gt;=</strong></td>
+                <td>以上</td>
+            </tr>
+            <tr>
+                <td><strong>&lt;=</strong></td>
+                <td>以下</td>
+            </tr>
+        </table>
+        <p>これをpythonコードに落とし込んでみよう<br>
+            仮に、室内温度＝room_tempを、１８度としようか。</p>
+        <pre data-role="codeBlock" data-info="python" class="language-python python"><code>room_temp = 18
+
+#室内温度が２５度以上だったら「冷房オン」とprint
+if room_temp &gt;= 25:
+    print("冷房オン")
+</code></pre>
+        <p>※　コードの中の　#　で始まる行は「コメント」といって、プログラムには関係のない行として無視されます。どんな処理をしているかのメモを残したりするときに使います。</p>
+
+        <h2 id="elif-と-else">elif と else</h2>
+        <p>複雑な条件分岐を書くときは、条件が２つ以上になる。今回の条件は</p>
+        <pre data-role="codeBlock" data-info="" class="language-text"><code>①室内温度が２５度以上
+②室内温度が１０度以下
+③　①②以外（１０度より高く、２５度未満）
+</code></pre>
+        <p>の３つ<br>
+            <code>elif</code> は、条件分岐のなかにいくつでも追加できる。２つめ、３つ目の条件を追加するときに追加するやつ<br>
+            <code>else</code> は、その上にあるどの条件にも合致しないときに実行する処理を書くときにつかうやつ。他の２つと違ってこの場合は条件を書く必要がない<br>
+            elif elseを使うバージョンの条件分岐の書き方はこんな感じ。</p>
+        <p><img class="img_top" src="img/if_structure_top.png" alt="if・elif・elseの書き方"></p>
+        <p>これを使って、エアコンプログラムを完成させてみよう</p>
+        <pre data-role="codeBlock" data-info="python" class="language-python python"><code>room_temp = 18
+
+# 室内温度が２５度以上だったら「冷房オン」とprint
+if room_temp &gt;= 25:
+    print("冷房オン")
+# 室内温度が１０度以下だったら「暖房オン」とprint
+elif room_temp &lt;= 10:
+    print("暖房オン")
+# そのどちらでもなかったときに「電源オフ」とprint
+else:
+    print("電源オフ")
+</code></pre>
+
+        <h1 id="2-制御構文②-for-〜回くりかえす">2. 制御構文②: <code>&lt;for&gt;(フォー)</code> 〜回くりかえす (回数指定の繰り返し)</h1>
+        <p><img class="img_top" src="img/pushup_for_top.png" alt="pushup_for"></p>
+        <p>コードを書くときのとても重要な考え方として、「コードをわかりやすく、短くまとめる」というのがある。</p>
+        <p>真夏の体育館での校長先生の話を考えてみよう。５分ですむ話を、１時間も２時間もされたら、たまったもんじゃないよね。でも大体校長先生の話とかって「挨拶をしようね」「礼儀正しくしようね」ってだけの内容の事が多い（気がするｗ）<br>
+            プログラミングをしていくうえで、「おんなじことを何回も繰り返し実行したい」っていうシーンは結構ある。</p>
+        <p>プログラミングもおんなじで、短く書くことができるのに、それをわざわざながーーーーく書くことは良くないとされている。pythonの制御構文を使って、シンプルに読みやすく書くようにしよう。</p>
+
+        <h2 id="繰り返しを使わずに書いてみよう">繰り返しを使わずに書いてみよう</h2>
+        <p>例えば</p>
+        <ul>
+            <li>クラスの全員に対して個別でLINEを送りたい（＝クラスの人数分繰り返しLINEを送る）</li>
+            <li>右ボタンが押されている限り繰り返しキャラクターを右に移動させたい</li>
+        </ul>
+        <p>１つ目のLINEの例を考えてみよう。</p>
+        <p>たとえばクラスが１００人いたときに、コードはこんな感じ（実際にはlineを送る処理はもっと複雑だけど）</p>
+        <pre data-role="codeBlock" data-info="python" class="language-python python"><code>print("LINEを送信")
+print("LINEを送信")
+print("LINEを送信")
+print("LINEを送信")
+print("LINEを送信")
+print("LINEを送信")
+print("LINEを送信")
+print("LINEを送信")
+・・・
+# これを１００人分繰り返す
+</code></pre>
+
+        <h2 id="for--〜回くりかえす">for = 「〜回くりかえす」</h2>
+        <p>こんな感じで、<strong>回数が決まっている</strong>（今回は１００回）繰り返しは、pythonではこう書きます。</p>
+        <p><img class="img_top" src="img/for_structure_top.png" alt="for_structure"></p>
+        <p>これをもとに、さっきのLINE送信プログラムを書いてみると</p>
+        <pre data-role="codeBlock" data-info="python" class="language-python python"><code>for i in range(100):
+    print("LINEを送信")
+</code></pre>
+        <details>
+            <summary>参考：i とか range とかって何なのよ</summary>
+            <p>このコードを動かしてみよう</p>
+            <pre data-role="codeBlock" data-info="python" class="language-python python"><code>for i in range(10):
+    print(i)
+</code></pre>
+            <p>実行結果↓</p>
+            <pre data-role="codeBlock" data-info="" class="language-text"><code>0
+1
+2
+3
+...(省略)
+9
+</code></pre>
+            <p>range(10)とすると、０から９までの数字データのかたまり（配列といいます）が入って、for文といっしょに使うことで、処理中にその塊に入っているデータに順番にアクセスしていく感じ。０から９だから、全部で１０回の繰り返しになる、てこと。iという文字に、繰り返しごとにデータが順番に入っていく感じ。ここの文字は別にiである必要はなくて、自由に名前をつけられる。<br>
+                配列には他にも「リスト」などの種類があって、こっちは数字だけじゃなくて文字も扱える。<br>
+                配列を使った繰り返しの例はこんな感じ</p>
+            <pre data-role="codeBlock" data-info="python" class="language-python python"><code>teacher_list = ["リッキー", "オッキー", "ガッキー", "グッチー"]
+for teacher in teacher_list:
+    print(teacher + "かっこいい")
+</code></pre>
+            <p>実行結果↓</p>
+            <pre data-role="codeBlock" data-info="" class="language-text"><code>リッキーかっこいい
+オッキーかっこいい
+ガッキーかっこいい
+グッチーかっこいい
+</code></pre>
+        </details>
+
+        <h1 id="3-制御構文③-while-〜の間くりかえす">3. 制御構文③: <code>&lt;while&gt;(ホワイル)</code> 〜の間くりかえす (条件指定の繰り返し)</h1>
+        <p><img class="img_top" src="img/pushup_while_top.png" alt="pushup_while"></p>
+        <p>for文は回数指定の繰り返しだけど、例えばこんなとき、何回繰り返すことになるかわかんないよね</p>
+        <ul>
+            <li>気温が３０度以上である限りスプリンクラーを撒き続ける</li>
+            <li>「おわり」と指示するまで仕事をやめないロボット</li>
+            <li>「君がッ 泣くまで 殴るのをやめないッ」</li>
+        </ul>
+        <p>これらは回数じゃなくて<strong>条件</strong>によって繰り返すかどうかを制御する必要がある。</p>
+
+        <h2 id="while--〜の間くりかえす">while = 「〜の間くりかえす」</h2>
+        <p>while文の繰り返しの書き方はこんな感じ</p>
+        <pre data-role="codeBlock" data-info="python" class="language-python python"><code>while 繰り返すときの条件:
+    繰り返したい処理
+</code></pre>
+        <p>試しに、「君がッ 泣くまで 殴るのをやめないッ」を、pythonで実装してみよう。<br>
+            inputという特殊な関数を使って、ユーザーが文字を入力して、「ぴえん」という文字を入力したときだけ処理が終了して許してもらえるというプログラム。</p>
+        <pre data-role="codeBlock" data-info="python" class="language-python python"><code>dio = ""
+while dio != "ぴえん":
+    print("オラ!")
+    dio = input("dio:")
+print("ゆるしてやろう")
+</code></pre>
+        <p>ここでもインデントが重要で、インデントされている2つの処理が繰り返し実行される処理、インデントされていない print("ゆるしてやろう") の部分は、繰り返し=while文が終了したあとに実行されることがわかる。</p>
+        <details>
+            <summary>参考①True(トゥルー)とFalse(フォルス)</summary>
+            <p>試しにこのコードを実行してみよう。</p>
+            <pre data-role="codeBlock" data-info="python" class="language-python python"><code>ricky = "かっこいい"
+print(ricky == "かっこいい")
+</code></pre>
+            <p>実行結果</p>
+            <pre data-role="codeBlock" data-info="" class="language-text"><code>True
+</code></pre>
+            <p>True : 正しい<br>
+                pythonも認めざるを得ないかっこよさ。<br>
+                冗談はさておき、これは <code>ricky という変数と "かっこいい" という文字データは同じ</code> という条件が「正しい」ので、Trueという結果が返ってきている感じ。<br>
+                逆に</p>
+            <pre data-role="codeBlock" data-info="python" class="language-python python"><code>ricky = "かっこいい"
+print(ricky == "ブサイク")
+</code></pre>
+            <p>コレを実行してみると</p>
+            <pre data-role="codeBlock" data-info="" class="language-text"><code>False
+</code></pre>
+            <p>という結果がでます。(False=フォルス:間違い)</p>
+            <p>今まで出てきたif文やwhile文は、「条件」が「TrueかFalseか」を判定しているわけ。例えば</p>
+            <pre data-role="codeBlock" data-info="python" class="language-python python"><code>if ricky == "イケメン":
+    print("わかるー")
+</code></pre>
+            <p>というif文は、<code>ricky == "イケメン"</code>という条件がTrueのときに「わかるー」とprintする、という感じになる。ちなみに、パソコン内部的にはTrueは1、Falseは0として扱われるので、最初に出てきた「パソコンは0と1だけでデータを処理している」っていう話とつながってきたりする。試しにこのコードを実行すると、「おんなじ!」と出力される。</p>
+            <pre data-role="codeBlock" data-info="python" class="language-python python"><code>if (True == 1):
+    print("おんなじ!")
+</code></pre>
+        </details>
+        <details>
+            <summary>参考②無限ループ</summary>
+            <p>ゲームが起動中にずーっと同じ処理を繰り返したい場合などによく使われる手法で、無限ループというのがある。たとえばこんなコード(実行する場合は、必ず近くに詳しい人がいるときにやってください。やりすぎるとパソコンに余計な負担をかけてしまうことがあります。)</p>
+            <pre data-role="codeBlock" data-info="python" class="language-python python"><code>while True:
+    print("リッキーかっこいい")
+</code></pre>
+            <p>無限にリッキーかっこいいとprintするという非常に正しいコードになってる。<br>
+                ループを抜けたい場合はCtrl + C で終了できる。</p>
+        </details>
+
+        <h1 id="関数-処理をまとめよう">関数: 処理をまとめよう</h1>
+        <p><img class="img_top" src="img/function_jyaian_top.svg" alt="function_jyaian"></p>
+        <p>関数の基本の考え方は、<code>何度も使いそうな処理を一箇所にまとめておいて、使いたいときに処理を呼び出す</code>というやり方。<br>
+            以下のコードは、for文などの繰り返しと違うところは、回数や条件を指定できない代わりに、<code>引数</code>というシステムを使うと、同じ処理を繰り返すだけではなく、<code>同じ「ような」</code>処理を繰り返し行うことができる。書き方の説明の前に、実際に関数をつかって書かれたコードを見てみよう、<br>
+            以下の２つのコードは、どちらも正方形の面積を求めるプログラムなんだけど、違いを見てみよう。</p>
+
+        <h2 id="パターン①引数を使わないパターン">パターン①：引数を使わないパターン</h2>
+        <pre data-role="codeBlock" data-info="python" class="language-python python"><code>def square():
+  hen_length = 5
+  menseki = hen_length ** 2
+  return menseki
+
+print(square())
+print(square())
+print(square())
+</code></pre>
+        <p>このコードを実行すると、こんな感じで、print(square())を実行するたびに一辺の長さが５の正方形の面積を求めることができるぜ！なんて便利な関数なんだ！</p>
+        <pre data-role="codeBlock" data-info="" class="language-text"><code>25
+25
+25
+</code></pre>
+
+        <h2 id="パターン②引数を使うパターン">パターン②：引数を使うパターン</h2>
+        <p>続いて、引数を使うパターンがこっち</p>
+        <pre data-role="codeBlock" data-info="python" class="language-python python"><code>def square(hen):
+  menseki = hen ** 2
+  return menseki
+
+print(square(5))
+print(square(6))
+print(square(7))
+</code></pre>
+        <p>実行すると、それぞれ１辺が５，６，７の正方形の面積をprintしていることがわかる。これで、<strong>同じ処理を、渡すデータを変えて</strong>実行することができるようになったわけだ</p>
+
+        <h2 id="引数と戻り値のイメージ">引数と戻り値のイメージ</h2>
+        <p>処理をするのに必要で、関数に与えるデータのことを<strong>引数</strong>、処理した結果返ってくるデータを <strong>戻り値（返り値と言ったりもする）</strong> という。<br>
+            データの流れを図で追ってみるとこんな感じ。</p>
+        <p><img src="img/function.png" alt="引数と戻り値の流れ"></p>
+        <table>
+            <tr>
+                <td><b>用語</b></td>
+                <td><b>意味</b></td>
+            </tr>
+            <tr>
+                <td>引数</td>
+                <td>関数にわたすデータ</td>
+            </tr>
+            <tr>
+                <td>戻り値</td>
+                <td>関数から返ってくるデータ</td>
+            </tr>
+        </table>
+
+        <h1 id="練習問題-cliアプリを作ろう">💪 練習問題: CLIアプリを作ろう</h1>
+
+        <h2 id="練習問題④-挨拶bot①">&lt;練習問題④&gt; 挨拶bot①</h2>
+        <p>ユーザーが入力した文字に対して、「◯◯さん、おはよう！」という文字を返してprintする関数を作ってみよう。</p>
+
+        <h3 id="input関数">input関数</h3>
+        <p>ユーザーが入力したときに、その文字をプログラムの中で使えるようにする、input関数というのがある。使い方はこんな感じ。</p>
+        <pre data-role="codeBlock" data-info="python" class="language-python python"><code>moji = input("入力した文字：")
+print(moji)
+</code></pre>
+        <p>これを実行すると、「入力した文字：」という文字が出た状態でプログラムが止まるので、そのあとに好きな文字を入力してエンターを押す。すると、変数mojiに入力した文字が入ってprintされる。これを利用して、関数を作成してみよう。</p>
+
+        <h3 id="関数の設計を考える">関数の設計を考える</h3>
+        <p>いきなりコードを書きはじめる前に、大体の関数の機能を表などにしてまとめるのがおすすめ。</p>
+        <table>
+            <tr>
+                <td>関数名</td>
+                <td>goodmorning</td>
+            </tr>
+            <tr>
+                <td>引数</td>
+                <td>name</td>
+            </tr>
+            <tr>
+                <td>戻り値</td>
+                <td>nameに「さん、おはよう！」を足したもの。</td>
+            </tr>
+        </table>
+        <details>
+            <summary>解答例</summary>
+            <pre data-role="codeBlock" data-info="python" class="language-python python"><code>name = input("お名前は？：")
+def goodmorning(name):
+    return name + "さん、おはよう！"
+
+print(goodmorning(name))
+</code></pre>
+        </details>
+
+        <h2 id="練習問題⑤-挨拶bot②">&lt;練習問題⑤&gt; 挨拶bot②</h2>
+        <p>挨拶bot①を改良して、時間によって挨拶の内容を変えるプログラムを作ってみよう</p>
+        <p>&lt;ヒント①&gt;<br>
+            input関数を使って時間を入力して取得できるようにしても、こんなかんじのエラーがでる。</p>
+        <pre data-role="codeBlock" data-info="" class="language-text"><code>TypeError: '&gt;=' not supported between instances of 'str' and 'int'
+</code></pre>
+        <p>input関数を使って返ってくるデータは常に「文字」なので、数字に変換してあげる必要がある。</p>
+        <pre data-role="codeBlock" data-info="python" class="language-python python"><code>int(数字に変更したい文字)
+</code></pre>
+        <p>&lt;ヒント②&gt;<br>
+            時間によって挨拶の内容を変える　＝　「もし」時間が◯時から◯時の間だったら・・・</p>
+        <details>
+            <summary>解答例</summary>
+            <pre data-role="codeBlock" data-info="python" class="language-python python"><code>name = input("お名前は？：")
+hour = int(input("時間(24h)は？："))
+def goodmorning(name, hour):
+    if hour &gt;= 5 and hour &lt; 10:
+        greeting = "おはよう"
+    elif hour &gt;= 10 and hour &lt; 18:
+        greeting = "こんにちは"
+    else:
+        greeting = "こんばんは"
+    return name + "さん、" + greeting + "！"
+
+print(goodmorning(name, hour))
+</code></pre>
+        </details>
+
+        <h1 id="ゲーム開発エンジン-pyxel-ピクセル入門">🎮 ゲーム開発エンジン Pyxel (ピクセル)入門</h1>
+        <p>さてさて<br>
+            これまでpythonの基礎文法をざっとやってみたわけだけど、これがどう役に立つのかってところだ。<br>
+            pythonでできることはほんとにいろいろあって、例えばwebサイトを作ったり、スマホアプリを作ったり、ロボットを動かしたりってことができるんだけど、それぞれを実現するためには、pythonの基礎文法に加えて、それぞれの専門分野を少しずつでも勉強していく必要があるんだけど、今回の講義ではゲーム制作をやっていくよ。<br>
+            pythonの大きな特徴として、「これが実現したい！」というときに、そのために使える便利な道具（「ライブラリ」）がたくさん用意されていることがあげられる。今回はレトロ２Dゲームを作るのに便利な　<strong>pyxel(ピクセル)</strong>　というライブラリを使ってみよう。</p>
+
+        <h2 id="pyxelでできること">Pyxelでできること</h2>
+        <ul>
+            <li><strong>レトロゲーム風のゲーム</strong>を簡単に作れるPythonライブラリ（機能集）</li>
+            <li><strong>16色パレット</strong>や<strong>ドット絵</strong>、<strong>レトロな音</strong>など、昔のゲーム機のような雰囲気が出せる。</li>
+            <li>Pythonのコードを書くだけで、グラフィックやサウンドの難しい設定なしにゲームが作れる。</li>
+        </ul>
+
+        <h2 id="pyxelの基本の流れ">Pyxelの基本の流れ</h2>
+        <p>pyxelのコードは、大きく以下の３つの関数で構成されている。</p>
+        <ul>
+            <li>update関数：ゲーム実行するデータの更新を行う（１秒間に３０回＝３０FPS）</li>
+            <li>draw関数：update関数で更新されたデータを元に、絵や図形などを描画する</li>
+        </ul>
+        <p>例えば、四角い図形が右にスーっと移動するプログラムを書くとしよう。すると、プログラムの流れとしては</p>
+        <ol>
+            <li>update関数で、四角を移動する処理をする</li>
+            <li>draw関数で、移動した位置に四角を描画</li>
+            <li>update関数で、四角を移動する処理をする</li>
+            <li>draw関数で、移動した位置に四角を描画</li>
+        </ol>
+        <p>てかんじになる。pyxelで図形の位置を示すのに　<strong>x座標・y座標</strong>　を使って表すよ。右方向に四角が進むということは、ｘ座標が増えていくということになる。</p>
+
+        <h2 id="こまけえこたぁいいんだよ">こまけえこたぁいいんだよ</h2>
+        <p>早速やってみよう</p>
+
+        <h2 id="pyxelで図形を表示しよう">Pyxelで図形を表示しよう</h2>
+        <p>まずは最も基本的な図形である<strong>四角形</strong>を表示してみよう。<br>
+            全体のコードはこんな感じ</p>
+        <pre data-role="codeBlock" data-info="python" class="language-python python"><code>import pyxel
+
+# pyxelを初期化：画面のサイズを２００ｘ２００ピクセルに設定
+pyxel.init(200, 200)
+
+# 四角に関する情報を定義
+rect_info = {
+    "x": 10,
+    "y": 10,
+    "w": 100,
+    "h": 100,
+    "col": 7
+}
+
+# update関数：四角を移動する処理をする
+def update():
+    pass
+
+# draw関数：四角を描画する
+def draw():
+    # 背景色を黒にする
+    pyxel.cls(0)
+    # 四角を描画
+    pyxel.rect(rect_info["x"], rect_info["y"], rect_info["w"], rect_info["h"], rect_info["col"])
+
+pyxel.run(update, draw)
+</code></pre>
+        <ul>
+            <li><strong><code>pyxel.rect(x, y, w, h, col)</code></strong>: 四角形を描画します。
+                <ul>
+                    <li><code>x</code>, <code>y</code>: 左上の座標</li>
+                    <li><code>w</code>, <code>h</code>: 幅と高さ</li>
+                    <li><code>col</code>: 色（0〜15の数字で指定）</li>
+                </ul>
+            </li>
+        </ul>
+        <p>さて、このままだと四角い図形がドーンとでて終わりになるので、四角を動かしてみよう。update関数に動かす処理を書くんだったけど、四角のｘ座標を１大きくする処理を書いてみよう</p>
+        <pre data-role="codeBlock" data-info="python" class="language-python python"><code>import pyxel
+
+# pyxelを初期化：画面のサイズを２００ｘ２００ピクセルに設定
+pyxel.init(200, 200)
+
+# 四角に関する情報を定義
+rect_info = {
+    "x": 10,
+    "y": 10,
+    "w": 100,
+    "h": 100,
+    "col": 7
+}
+
+# update関数：四角を移動する処理をする
+def update():
+    rect_info["x"] = rect_info["x"] + 1
+
+# draw関数：四角を描画する
+def draw():
+    # 背景色を黒にする
+    pyxel.cls(0)
+    # 四角を描画
+    pyxel.rect(rect_info["x"], rect_info["y"], rect_info["w"], rect_info["h"], rect_info["col"])
+
+pyxel.run(update, draw)
+</code></pre>
+
+        <h2 id="どうだようわからんだろう">どうだ、ようわからんだろう！</h2>
+        <p>次回以降細かい使い方の説明はしていくのでよしとしよう。<br>
+            とりあえず、今のコードのいろんなところをいじってみよう。</p>
+        <ul>
+            <li>右ではなく左に動かすには？</li>
+            <li>上下はどうだ？</li>
+            <li>白い四角を他の色にするには？</li>
+        </ul>
+        <p>いろいろ試してやってみよう。</p>
+
+    </div>
+
+    <script src="../js/script.js"></script>
+</body>
+
+</html>
