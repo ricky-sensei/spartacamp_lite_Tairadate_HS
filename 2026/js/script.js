@@ -130,9 +130,10 @@ function copyCode(buttonElement) {
 
     if (!headerList || !content) return;
 
-    // 古いページで小見出しに使われているh3/h4を、現在のh2へ統一する。
-    // トップページ（index.html）のもくじカード内のh3は対象外。
-    Array.from(content.querySelectorAll("h3, h4")).filter((heading) => !heading.closest(".index_section")).forEach((heading) => {
+    // 古いページで小見出しに使われているh4を、現在のh2へ統一する。
+    // h3はh2の項目内の小見出しとして使うため変換しない。
+    // トップページ（index.html）のもくじカード内の見出しは対象外。
+    Array.from(content.querySelectorAll("h4")).filter((heading) => !heading.closest(".index_section")).forEach((heading) => {
         const replacement = document.createElement("h2");
         Array.from(heading.attributes).forEach((attribute) => {
             replacement.setAttribute(attribute.name, attribute.value);

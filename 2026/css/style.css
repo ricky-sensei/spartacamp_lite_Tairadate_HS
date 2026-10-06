@@ -1505,6 +1505,22 @@ html body .markdown-preview h2 code {
     color: inherit;
 }
 
+/* h3はh2の項目内の小見出しとして、字下げした小さめの見た目にする。トップページのもくじカードは対象外。 */
+html body .markdown-preview h3:not(.index_section h3) {
+    margin: 1.4em 0 0.8em 1.2em;
+    padding: 0.15em 0 0.15em 0.6em;
+    border-left: 4px solid #f0a12d;
+    color: #70460a;
+    font-size: 1.15em;
+    line-height: 1.4;
+}
+
+/* 見出し内のcodeは黄色背景で目立たせる。 */
+html body .markdown-preview h1 code,
+html body .markdown-preview h2 code {
+    background-color: #ffeb3b;
+}
+
 @media screen and (max-width: 450px) {
     html body .markdown-preview h1 {
         font-size: 1.65em;
