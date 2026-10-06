@@ -20,15 +20,15 @@
         <p>プログラムは基本的に上から下に順番に実行されるけど、それだけだと一本道の単純な処理しかできない。時には「もし〇〇だったら、この処理をする」「この処理を10回繰り返す」のように、<strong>処理の流れをコントロールする(制御する)</strong>必要がある。</p>
         <p>これを可能にするのがpythonの<strong>制御構文</strong>。</p>
 
-        <h1 id="1-制御構文①-if-もし〜なら">1. 制御構文①: <code>&lt;if&gt;(イフ)</code> もし〜なら (条件分岐)</h1>
+        <h1 id="1-制御構文①-if-もし〜なら">1. 制御構文①: <code>if(イフ)</code> もし〜なら (条件分岐)</h1>
         <p><img class="img_top" src="img/day2_top.png" alt="day2のトップ画像"></p>
         <p>例えば、エアコンの新機能を作るとする。室内を最適な温度に保ちたいわけだけど、いちいち温度設定をしたり、冷房と暖房を切り替えたりするのがめんどくさい！ていう悩みを解決してみよう。</p>
 
         <h2 id="プログラムを日本語で表現してみよう">プログラムを日本語で表現してみよう</h2>
         <p>今回書きたいコードを日本語で表現してみると、こんな感じ</p>
-        <pre data-role="codeBlock" data-info="" class="language-text"><code>もし　外の気温が　２５度以上だったら
+        <pre data-role="codeBlock" data-info="" class="language-text"><code>もし　室内温度が　２５度以上だったら
 　　「冷房オン」とprint
-そうじゃなくて　外の気温が　１０度以下だったら
+そうじゃなくて　室内温度が　１０度以下だったら
 　　「暖房オン」とprint
 どっちでもなかったとき
 　　「電源オフ」とprint
@@ -39,8 +39,8 @@
         <pre data-role="codeBlock" data-info="python" class="language-python python"><code>if 条件:
     やりたいこと
 </code></pre>
-        <p>今回の場合、この「条件」のところに「外の気温が　２５度以上だったら」などの条件が入るわけだけど、その部分をどう書くかが問題。</p>
-        <p>「２５」という指定された数字と、実際の外の気温を比較する必要がある。</p>
+        <p>今回の場合、この「条件」のところに「室内温度が　２５度以上だったら」などの条件が入るわけだけど、その部分をどう書くかが問題。</p>
+        <p>「２５」という指定された数字と、実際の室内温度を比較する必要がある。</p>
 
         <h2 id="比較演算子">比較演算子</h2>
         <p>算数・数学でいうところの大なり（＞）とか小なり（＜）のプログラミング版の書き方。</p>
@@ -81,7 +81,7 @@
 #室内温度が２５度以上だったら「冷房オン」とprint
 if room_temp &gt;= 25:
     print("冷房オン")
-</code></pre>
+</code><button class="copy-btn" onclick="copyCode(this)">copy</button></pre>
         <p>※　コードの中の　#　で始まる行は「コメント」といって、プログラムには関係のない行として無視されます。どんな処理をしているかのメモを残したりするときに使います。</p>
 
         <h2 id="elif-と-else">elif と else</h2>
@@ -107,9 +107,9 @@ elif room_temp &lt;= 10:
 # そのどちらでもなかったときに「電源オフ」とprint
 else:
     print("電源オフ")
-</code></pre>
+</code><button class="copy-btn" onclick="copyCode(this)">copy</button></pre>
 
-        <h1 id="2-制御構文②-for-〜回くりかえす">2. 制御構文②: <code>&lt;for&gt;(フォー)</code> 〜回くりかえす (回数指定の繰り返し)</h1>
+        <h1 id="2-制御構文②-for-〜回くりかえす">2. 制御構文②: <code>for(フォー)</code> 〜回くりかえす (回数指定の繰り返し)</h1>
         <p><img class="img_top" src="img/pushup_for_top.png" alt="pushup_for"></p>
         <p>コードを書くときのとても重要な考え方として、「コードをわかりやすく、短くまとめる」というのがある。</p>
         <p>真夏の体育館での校長先生の話を考えてみよう。５分ですむ話を、１時間も２時間もされたら、たまったもんじゃないよね。でも大体校長先生の話とかって「挨拶をしようね」「礼儀正しくしようね」ってだけの内容の事が多い（気がするｗ）<br>
@@ -142,13 +142,13 @@ print("LINEを送信")
         <p>これをもとに、さっきのLINE送信プログラムを書いてみると</p>
         <pre data-role="codeBlock" data-info="python" class="language-python python"><code>for i in range(100):
     print("LINEを送信")
-</code></pre>
+</code><button class="copy-btn" onclick="copyCode(this)">copy</button></pre>
         <details>
             <summary>参考：i とか range とかって何なのよ</summary>
             <p>このコードを動かしてみよう</p>
             <pre data-role="codeBlock" data-info="python" class="language-python python"><code>for i in range(10):
     print(i)
-</code></pre>
+</code><button class="copy-btn" onclick="copyCode(this)">copy</button></pre>
             <p>実行結果↓</p>
             <pre data-role="codeBlock" data-info="" class="language-text"><code>0
 1
@@ -163,7 +163,7 @@ print("LINEを送信")
             <pre data-role="codeBlock" data-info="python" class="language-python python"><code>teacher_list = ["リッキー", "オッキー", "ガッキー", "グッチー"]
 for teacher in teacher_list:
     print(teacher + "かっこいい")
-</code></pre>
+</code><button class="copy-btn" onclick="copyCode(this)">copy</button></pre>
             <p>実行結果↓</p>
             <pre data-role="codeBlock" data-info="" class="language-text"><code>リッキーかっこいい
 オッキーかっこいい
@@ -172,7 +172,7 @@ for teacher in teacher_list:
 </code></pre>
         </details>
 
-        <h1 id="3-制御構文③-while-〜の間くりかえす">3. 制御構文③: <code>&lt;while&gt;(ホワイル)</code> 〜の間くりかえす (条件指定の繰り返し)</h1>
+        <h1 id="3-制御構文③-while-〜の間くりかえす">3. 制御構文③: <code>while(ワイル)</code> 〜の間くりかえす (条件指定の繰り返し)</h1>
         <p><img class="img_top" src="img/pushup_while_top.png" alt="pushup_while"></p>
         <p>for文は回数指定の繰り返しだけど、例えばこんなとき、何回繰り返すことになるかわかんないよね</p>
         <ul>
@@ -184,9 +184,7 @@ for teacher in teacher_list:
 
         <h2 id="while--〜の間くりかえす">while = 「〜の間くりかえす」</h2>
         <p>while文の繰り返しの書き方はこんな感じ</p>
-        <pre data-role="codeBlock" data-info="python" class="language-python python"><code>while 繰り返すときの条件:
-    繰り返したい処理
-</code></pre>
+        <p><img class="img_top" src="img/while_structure_top.png" alt="while_structure"></p>
         <p>試しに、「君がッ 泣くまで 殴るのをやめないッ」を、pythonで実装してみよう。<br>
             inputという特殊な関数を使って、ユーザーが文字を入力して、「ぴえん」という文字を入力したときだけ処理が終了して許してもらえるというプログラム。</p>
         <pre data-role="codeBlock" data-info="python" class="language-python python"><code>dio = ""
@@ -194,14 +192,14 @@ while dio != "ぴえん":
     print("オラ!")
     dio = input("dio:")
 print("ゆるしてやろう")
-</code></pre>
+</code><button class="copy-btn" onclick="copyCode(this)">copy</button></pre>
         <p>ここでもインデントが重要で、インデントされている2つの処理が繰り返し実行される処理、インデントされていない print("ゆるしてやろう") の部分は、繰り返し=while文が終了したあとに実行されることがわかる。</p>
         <details>
             <summary>参考①True(トゥルー)とFalse(フォルス)</summary>
             <p>試しにこのコードを実行してみよう。</p>
             <pre data-role="codeBlock" data-info="python" class="language-python python"><code>ricky = "かっこいい"
 print(ricky == "かっこいい")
-</code></pre>
+</code><button class="copy-btn" onclick="copyCode(this)">copy</button></pre>
             <p>実行結果</p>
             <pre data-role="codeBlock" data-info="" class="language-text"><code>True
 </code></pre>
@@ -211,7 +209,7 @@ print(ricky == "かっこいい")
                 逆に</p>
             <pre data-role="codeBlock" data-info="python" class="language-python python"><code>ricky = "かっこいい"
 print(ricky == "ブサイク")
-</code></pre>
+</code><button class="copy-btn" onclick="copyCode(this)">copy</button></pre>
             <p>コレを実行してみると</p>
             <pre data-role="codeBlock" data-info="" class="language-text"><code>False
 </code></pre>
@@ -223,56 +221,61 @@ print(ricky == "ブサイク")
             <p>というif文は、<code>ricky == "イケメン"</code>という条件がTrueのときに「わかるー」とprintする、という感じになる。ちなみに、パソコン内部的にはTrueは1、Falseは0として扱われるので、最初に出てきた「パソコンは0と1だけでデータを処理している」っていう話とつながってきたりする。試しにこのコードを実行すると、「おんなじ!」と出力される。</p>
             <pre data-role="codeBlock" data-info="python" class="language-python python"><code>if (True == 1):
     print("おんなじ!")
-</code></pre>
+</code><button class="copy-btn" onclick="copyCode(this)">copy</button></pre>
         </details>
         <details>
             <summary>参考②無限ループ</summary>
             <p>ゲームが起動中にずーっと同じ処理を繰り返したい場合などによく使われる手法で、無限ループというのがある。たとえばこんなコード(実行する場合は、必ず近くに詳しい人がいるときにやってください。やりすぎるとパソコンに余計な負担をかけてしまうことがあります。)</p>
             <pre data-role="codeBlock" data-info="python" class="language-python python"><code>while True:
     print("リッキーかっこいい")
-</code></pre>
+</code><button class="copy-btn" onclick="copyCode(this)">copy</button></pre>
             <p>無限にリッキーかっこいいとprintするという非常に正しいコードになってる。<br>
                 ループを抜けたい場合はCtrl + C で終了できる。</p>
         </details>
 
         <h1 id="関数-処理をまとめよう">関数: 処理をまとめよう</h1>
-        <p><img class="img_top" src="img/function_jyaian_top.svg" alt="function_jyaian"></p>
+        <p><img class="img_top" src="img/function_jyaian_top.png" alt="function_jyaian"></p>
         <p>関数の基本の考え方は、<code>何度も使いそうな処理を一箇所にまとめておいて、使いたいときに処理を呼び出す</code>というやり方。<br>
-            以下のコードは、for文などの繰り返しと違うところは、回数や条件を指定できない代わりに、<code>引数</code>というシステムを使うと、同じ処理を繰り返すだけではなく、<code>同じ「ような」</code>処理を繰り返し行うことができる。書き方の説明の前に、実際に関数をつかって書かれたコードを見てみよう、<br>
-            以下の２つのコードは、どちらも正方形の面積を求めるプログラムなんだけど、違いを見てみよう。</p>
+            以下のコードは、for文などの繰り返しと違うところは、回数や条件を指定できない代わりに、<code>引数</code>というシステムを使うと、同じ処理を繰り返すだけではなく、<code>同じ「ような」</code>処理を繰り返し行うことができる。書き方の説明の前に、実際に関数をつかって書かれたコードを見てみよう。<br>
+            ドラえもんの秘密道具で、｢きこりの泉｣っていうのを知ってる?童話の｢金の斧｣みたいなやつで、ジャイアンが入ると｢あなたが落としたのはこのきれいなジャイアンですか?それともこのきたないジャイアンですか?｣って聞いてくるやつ。<br>
+            木こりの泉の機能はこんな感じ</p>
+        <ul>
+            <li>ジャイアンを泉にいれる</li>
+            <li>泉の精霊が質問する</li>
+            <li>きれいなジャイアンを返す</li>
+        </ul>
 
         <h2 id="パターン①引数を使わないパターン">パターン①：引数を使わないパターン</h2>
-        <pre data-role="codeBlock" data-info="python" class="language-python python"><code>def square():
-  hen_length = 5
-  menseki = hen_length ** 2
-  return menseki
+        <pre data-role="codeBlock" data-info="python" class="language-python python"><code>def kikorino_izumi():
+    return "あなたにはこちらのきれいなジャイアンをあげましょう"
 
-print(square())
-print(square())
-print(square())
-</code></pre>
-        <p>このコードを実行すると、こんな感じで、print(square())を実行するたびに一辺の長さが５の正方形の面積を求めることができるぜ！なんて便利な関数なんだ！</p>
-        <pre data-role="codeBlock" data-info="" class="language-text"><code>25
-25
-25
+print(kikorino_izumi())
+print(kikorino_izumi())
+print(kikorino_izumi())
+</code><button class="copy-btn" onclick="copyCode(this)">copy</button></pre>
+        <p>このコードを実行すると、こんな感じで、print(square())を実行するだけできれいなジャイアンを出してくれる。なんて便利な関数なんだ!</p>
+        <pre data-role="codeBlock" data-info="" class="language-text"><code>あなたにはこちらのきれいなジャイアンをあげましょう
+あなたにはこちらのきれいなジャイアンをあげましょう
+あなたにはこちらのきれいなジャイアンをあげましょう
 </code></pre>
 
         <h2 id="パターン②引数を使うパターン">パターン②：引数を使うパターン</h2>
-        <p>続いて、引数を使うパターンがこっち</p>
-        <pre data-role="codeBlock" data-info="python" class="language-python python"><code>def square(hen):
-  menseki = hen ** 2
-  return menseki
+        <p>でもちょとまって。これだと、スネ夫を落とそうが、のび太を落とそうが、関係無しにきれいなジャイアンが出てきてしまう。ホントはスネ夫を落としたらきれいなスネ夫、のび太を落としたらきれいなのび太が出てきてほしい。<br>
+            そこで役立つのが<strong>引数</strong>というシステム。これを使うと、一つの関数でいろんなパターンのデータに対して同じ処理ができる。<br>
+            <img class="img_top" src="img/function_jyaian_argument_top.png" alt="function_jyaian_argument"></p>
+        <pre data-role="codeBlock" data-info="python" class="language-python python"><code>def kikorino_izumi(character):
+    return "あなたにはこちらのきれいな" + character + "をあげましょう"
 
-print(square(5))
-print(square(6))
-print(square(7))
-</code></pre>
-        <p>実行すると、それぞれ１辺が５，６，７の正方形の面積をprintしていることがわかる。これで、<strong>同じ処理を、渡すデータを変えて</strong>実行することができるようになったわけだ</p>
+print(kikorino_izumi("ジャイアン"))
+print(kikorino_izumi("スネ夫"))
+print(kikorino_izumi("のび太"))
+</code><button class="copy-btn" onclick="copyCode(this)">copy</button></pre>
+        <p>実行すると、きれいなスネ夫やきれいなのび太がprintされていることがわかる。これで、<strong>同じ処理を、渡すデータを変えて</strong>実行することができるようになったわけだ</p>
 
         <h2 id="引数と戻り値のイメージ">引数と戻り値のイメージ</h2>
         <p>処理をするのに必要で、関数に与えるデータのことを<strong>引数</strong>、処理した結果返ってくるデータを <strong>戻り値（返り値と言ったりもする）</strong> という。<br>
             データの流れを図で追ってみるとこんな感じ。</p>
-        <p><img src="img/function.png" alt="引数と戻り値の流れ"></p>
+        <p><img class="img_big" src="img/function_big.png" alt="引数と戻り値の流れ"></p>
         <table>
             <tr>
                 <td><b>用語</b></td>
@@ -290,14 +293,14 @@ print(square(7))
 
         <h1 id="練習問題-cliアプリを作ろう">💪 練習問題: CLIアプリを作ろう</h1>
 
-        <h2 id="練習問題④-挨拶bot①">&lt;練習問題④&gt; 挨拶bot①</h2>
+        <h2 id="練習問題④-挨拶bot①">練習問題④ 挨拶bot①</h2>
         <p>ユーザーが入力した文字に対して、「◯◯さん、おはよう！」という文字を返してprintする関数を作ってみよう。</p>
 
         <h3 id="input関数">input関数</h3>
         <p>ユーザーが入力したときに、その文字をプログラムの中で使えるようにする、input関数というのがある。使い方はこんな感じ。</p>
         <pre data-role="codeBlock" data-info="python" class="language-python python"><code>moji = input("入力した文字：")
 print(moji)
-</code></pre>
+</code><button class="copy-btn" onclick="copyCode(this)">copy</button></pre>
         <p>これを実行すると、「入力した文字：」という文字が出た状態でプログラムが止まるので、そのあとに好きな文字を入力してエンターを押す。すると、変数mojiに入力した文字が入ってprintされる。これを利用して、関数を作成してみよう。</p>
 
         <h3 id="関数の設計を考える">関数の設計を考える</h3>
@@ -323,19 +326,19 @@ def goodmorning(name):
     return name + "さん、おはよう！"
 
 print(goodmorning(name))
-</code></pre>
+</code><button class="copy-btn" onclick="copyCode(this)">copy</button></pre>
         </details>
 
-        <h2 id="練習問題⑤-挨拶bot②">&lt;練習問題⑤&gt; 挨拶bot②</h2>
+        <h2 id="練習問題⑤-挨拶bot②">練習問題⑤ 挨拶bot②</h2>
         <p>挨拶bot①を改良して、時間によって挨拶の内容を変えるプログラムを作ってみよう</p>
-        <p>&lt;ヒント①&gt;<br>
+        <p>ヒント①<br>
             input関数を使って時間を入力して取得できるようにしても、こんなかんじのエラーがでる。</p>
         <pre data-role="codeBlock" data-info="" class="language-text"><code>TypeError: '&gt;=' not supported between instances of 'str' and 'int'
 </code></pre>
         <p>input関数を使って返ってくるデータは常に「文字」なので、数字に変換してあげる必要がある。</p>
         <pre data-role="codeBlock" data-info="python" class="language-python python"><code>int(数字に変更したい文字)
 </code></pre>
-        <p>&lt;ヒント②&gt;<br>
+        <p>ヒント②<br>
             時間によって挨拶の内容を変える　＝　「もし」時間が◯時から◯時の間だったら・・・</p>
         <details>
             <summary>解答例</summary>
@@ -351,7 +354,77 @@ def goodmorning(name, hour):
     return name + "さん、" + greeting + "！"
 
 print(goodmorning(name, hour))
+</code><button class="copy-btn" onclick="copyCode(this)">copy</button></pre>
+        </details>
+
+        <h2 id="練習問題⑥-きこりの泉関数">練習問題⑥ きこりの泉関数</h2>
+        <p>関数のところで作った <code>kikorino_izumi</code> 関数を改良して、<strong>きたないジャイアン</strong>を泉に落としたときだけ、きれいなジャイアンを返す関数を作ってみよう。<br>
+            泉に落とすキャラクターは、input関数で入力できるようにしよう。きたないジャイアン以外を落としたときは、何も出てこないようにしよう。</p>
+        <p>実行例↓</p>
+        <pre data-role="codeBlock" data-info="" class="language-text"><code>泉に落とすキャラクターは？：きたないジャイアン
+あなたにはこちらのきれいなジャイアンをあげましょう
 </code></pre>
+        <pre data-role="codeBlock" data-info="" class="language-text"><code>泉に落とすキャラクターは？：のび太
+泉からは何も出てこなかった
+</code></pre>
+
+        <h3 id="関数の設計を考える-2">関数の設計を考える</h3>
+        <table>
+            <tr>
+                <td>関数名</td>
+                <td>kikorino_izumi</td>
+            </tr>
+            <tr>
+                <td>引数</td>
+                <td>character</td>
+            </tr>
+            <tr>
+                <td>戻り値</td>
+                <td>characterが「きたないジャイアン」なら「あなたにはこちらのきれいなジャイアンをあげましょう」<br>それ以外なら「泉からは何も出てこなかった」</td>
+            </tr>
+        </table>
+        <p>ヒント<br>
+            「もし」落としたキャラクターが「きたないジャイアン」と<strong>等しい</strong>なら・・・（比較演算子の表を見返してみよう）</p>
+        <details>
+            <summary>解答例</summary>
+            <pre data-role="codeBlock" data-info="python" class="language-python python"><code>character = input("泉に落とすキャラクターは？：")
+def kikorino_izumi(character):
+    if character == "きたないジャイアン":
+        return "あなたにはこちらのきれいなジャイアンをあげましょう"
+    else:
+        return "泉からは何も出てこなかった"
+
+print(kikorino_izumi(character))
+</code><button class="copy-btn" onclick="copyCode(this)">copy</button></pre>
+        </details>
+        <details>
+            <summary>参考：ホントのきこりの泉みたいにしてみる</summary>
+            <p>童話の「金の斧」では、泉の精が「あなたが落としたのはこの金の斧ですか？」と聞いてきて、<strong>正直に答えた人だけ</strong>がごほうびをもらえる。きこりの泉も同じで、泉の精の質問に正直に答えないと、きれいなジャイアンはもらえない。<br>
+                これを関数で再現してみるとこんな感じ。関数の中でもinput関数を使って、泉の精との問答ができるようになっている。</p>
+            <pre data-role="codeBlock" data-info="python" class="language-python python"><code>character = input("泉に落とすキャラクターは？：")
+def kikorino_izumi(character):
+    answer1 = input("あなたが落としたのはこのきれいな" + character + "ですか？（はい / いいえ）：")
+    answer2 = input("それとも、このきたない" + character + "ですか？（はい / いいえ）：")
+    if answer1 == "いいえ" and answer2 == "はい":
+        return "正直者のあなたには、きれいな" + character + "をあげましょう"
+    else:
+        return "うそつきには何もあげません"
+
+print(kikorino_izumi(character))
+</code><button class="copy-btn" onclick="copyCode(this)">copy</button></pre>
+            <p>実行例（正直に答えた場合）↓</p>
+            <pre data-role="codeBlock" data-info="" class="language-text"><code>泉に落とすキャラクターは？：ジャイアン
+あなたが落としたのはこのきれいなジャイアンですか？（はい / いいえ）：いいえ
+それとも、このきたないジャイアンですか？（はい / いいえ）：はい
+正直者のあなたには、きれいなジャイアンをあげましょう
+</code></pre>
+            <p>実行例（うそをついた場合）↓</p>
+            <pre data-role="codeBlock" data-info="" class="language-text"><code>泉に落とすキャラクターは？：ジャイアン
+あなたが落としたのはこのきれいなジャイアンですか？（はい / いいえ）：はい
+それとも、このきたないジャイアンですか？（はい / いいえ）：いいえ
+うそつきには何もあげません
+</code></pre>
+            <p><code>and</code> は「〜かつ〜」という意味で、両方の条件がTrueのときだけ、全体がTrueになる。</p>
         </details>
 
         <h1 id="ゲーム開発エンジン-pyxel-ピクセル入門">🎮 ゲーム開発エンジン Pyxel (ピクセル)入門</h1>
@@ -368,7 +441,7 @@ print(goodmorning(name, hour))
         </ul>
 
         <h2 id="pyxelの基本の流れ">Pyxelの基本の流れ</h2>
-        <p>pyxelのコードは、大きく以下の３つの関数で構成されている。</p>
+        <p>pyxelのコードは、大きく以下の２つの関数で構成されている。</p>
         <ul>
             <li>update関数：ゲーム実行するデータの更新を行う（１秒間に３０回＝３０FPS）</li>
             <li>draw関数：update関数で更新されたデータを元に、絵や図形などを描画する</li>
@@ -414,7 +487,7 @@ def draw():
     pyxel.rect(rect_info["x"], rect_info["y"], rect_info["w"], rect_info["h"], rect_info["col"])
 
 pyxel.run(update, draw)
-</code></pre>
+</code><button class="copy-btn" onclick="copyCode(this)">copy</button></pre>
         <ul>
             <li><strong><code>pyxel.rect(x, y, w, h, col)</code></strong>: 四角形を描画します。
                 <ul>
@@ -451,7 +524,7 @@ def draw():
     pyxel.rect(rect_info["x"], rect_info["y"], rect_info["w"], rect_info["h"], rect_info["col"])
 
 pyxel.run(update, draw)
-</code></pre>
+</code><button class="copy-btn" onclick="copyCode(this)">copy</button></pre>
 
         <h2 id="どうだようわからんだろう">どうだ、ようわからんだろう！</h2>
         <p>次回以降細かい使い方の説明はしていくのでよしとしよう。<br>
