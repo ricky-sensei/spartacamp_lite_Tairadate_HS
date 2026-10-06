@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>day3 Pyxelでお絵かきしよう</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-python.min.js"></script>
+</head>
+
+<body for="html-export" data-header-base-path="../">
+    <div id="pagetop"></div>
+    <div class="crossnote markdown-preview">
+
+        <p><img class="img_top" src="img/draw_update_top.svg" alt="draw()とupdate()を繰り返すイメージ"></p>
+        <h1 id="maintitle">day3 Pyxelでお絵かきしよう</h1>
+        <p>前回まではpythonのプログラミングの話がメインだったけど、今回はゲーム制作に使うキャラクターのデザイン制作の話をしていくよ。自分の作ったキャラクターが実際に動くところを見ると、だんだんモチベも上がっていくので、プログラミングの学習にもつながっていくね。</p>
+        <h1 id="ゲームエンジンとは">ゲームエンジンとは</h1>
+        <p>みんなが遊んでるゲームで、起動画面とかで、こういう画面見たことない？</p>
+        <p><img class="img_small" src="img/image-4_small.png" alt="ゲームエンジンのロゴ1"></p>
+        <p><img class="img_small" src="img/image-5_small.png" alt="ゲームエンジンのロゴ2"></p>
+        <p>実はこれ、「こういう名前のゲーム開発エンジンを使って開発したよ！」ていうマークなんだよね。で、ゲーム開発エンジンって何かってことだけど、簡単に言うと「ゲームに必要な要素が詰まった開発環境」のこと。</p>
+        <p>
+        例えば、ＦＰＳ（一人称視点シューティング：自分の目線で銃を撃ったりするやつ）のゲームを作ったときに、シューティングの部分だったり、弾の弾道計算なんかはプログラミングでできるけど、ゲーム用のマップを作ったり、マップに生えている草木なんかのオブジェクトをイチから作っていると、時間がいくらあっても足りないよね。</p>
+        <p>
+        ゲーム開発エンジンには、そういう細かいところの開発を助けてくれて、メインのプログラミングでの開発に集中しやすくしてくれる効果があるよ。</p>
+        <p>
+        ゲーム開発エンジンにもいろいろあって、バリバリのきれいな３ｄグラフィックを扱うのが得意なエンジンや、スマホゲームを開発するのが得意なエンジンなど、いろいろ。大きなゲーム開発会社だと、独自のゲーム開発エンジンを作っているところもあるくらい。</p>
+        <h1 id="レトロゲーム2dゲーム開発エンジンpyxel">レトロゲーム。２Ｄゲーム開発エンジン「Pyxel」</h1>
+        <p>そもそもレトロゲームってなんだよ、ていう話だけど、みなさんファミコンとかって聞いたことある？</p>
+        <p><img class="img_small" src="img/image-6_small.png" alt="ファミコン"></p>
+        <p>ファミリーコンピューターっていって、リッキーが幼稚園くらいにはまだ普通に遊ばれてたゲーム機。遊ばれてたゲームがどんなだったかっていうと<br />
+        こんなのとか</p>
+        <p><img class="img_small" src="img/image-9_small.png" alt="ファミコンのゲーム画面1"></p>
+        <p>こんなのとか</p>
+        <p><img class="img_small" src="img/image-10_small.png" alt="ファミコンのゲーム画面2"></p>
+        <p>なんか、全体的に四角いｗでも、↑みたいな画像で、ちゃんと車が右奥の方向に進んでるのを表現するのって、すごくない？？</p>
+        <p>ピクセルという単位があって、絵やグラフィックを表すための四角いマスのことで、このピクセルが小さければ小さいほど、きれいなグラフィックが表現できるんだけど、当時はそのピクセルが現代と比べるととっても大きくて、めちゃくちゃ大きい点を使って、いかにキャラクターなどの絵を表現するかと言うのが、すごく難しかったわけ。</p>
+        <p><img class="img_small" src="img/image-7_small.png" alt="ファミコン時代のマリオ"></p>
+        <p>このマリオがもう現在ときたら、</p>
+        <p><img class="img_small" src="img/image-8_small.png" alt="switchのマリオ"></p>
+        <p>こうなっちゃうんだから、すごいよね！</p>
+        <h1 id="レトロゲームの魅力">レトロゲームの魅力</h1>
+        <p>リッキーがゲームをしていた頃は、ゲームのグラフィック面での進化がすごくて、グラフィックがきれいなゲーム = 新しいゲーム = 良いゲーム、みたいなところがあった気がする。実際、ファミコンが出て、スーパーファミコンが出て、プレステが１，２、３と出ていくにつれて、ものすごい勢いでグラフィックの技術が進歩していった。ファイナルファンタジー（通称ＦＦ）っていうＲＰＧがあるんだけど、リッキーが小学生のときこうだったのが（↓FF5）</p>
+        <p><img class="img_small" src="img/image-11_small.png" alt="FF5"></p>
+        <p>中学生の時プレステ２がでて、こうなったのはマジでぶったまげた(FF10)</p>
+        <p><img class="img_small" src="img/image-12_small.png" alt="FF10"></p>
+        <p>でも、nintendoストアとかsteamとかのゲームストアで、よく昔のゲームのリマスター版が販売されてたりするよね。あと、めちゃくちゃ技術が進歩している中で、マイクラやロブロックスみたいなシンプルなグラフィックのゲームが世界中で流行ったり、アンダーテイルなんていうド直球な２Ｄゲームが５００万本売れたりしてる。</p>
+        <p><img class="img_small" src="img/image-13_small.png" alt="アンダーテイル"></p>
+        <p>これってつまり、ゲームの面白さはグラフィックだけじゃないってこと。ゲームシステムだったり、音楽だったり、演出だったり、いろんな要素が関係しているってこと。アイディア次第ですんごいゲームが作れちゃうってこと。実際昔のゲームをあそんでみると、技術的な制限がある中で超天才的なアイディアとセンスで作ってるのが感じられることがあるよ！ぜひやってみてね</p>
+        <h2 id="参考スマブラ生みの親桜井政博さんのyoutubeチャンネル桜井政博のゲームを作るには">参考：スマブラ生みの親・桜井政博さんのYoutubeチャンネル「桜井政博のゲームを作るには」</h2>
+        <p>ゲームクリエイターの桜井政博さんが運営しているYoutubeチャンネルで、ゲーム制作の話やスマブラなどの制作秘話みたいな情報がもりだくさん！とっても面白い話が聞けるチャンネルなので、ぜひ見てみてね！<br />
+        <a href="https://www.youtube.com/@sora_sakurai_jp">桜井政博のゲームを作るには</a></p>
+        <h1 id="pyxelとは">Pyxelとは</h1>
+        <p>「かんたんに・楽しく」ゲーム開発ができるように作られた、2Dゲーム開発専用のライブラリがpyxel。シンプルなpythonコードでアイディアをゲームに実装できるようになっている。</p>
+        <p>コーディング以外でも、ドット絵（レトロゲーム用の絵）を描けるツールが用意されていたり</p>
+        <p><img class="img_small" src="img/image-24_small.png" alt="ドット絵"></p>
+        <p>レトロゲーム風音楽を作成できるツールがあったり</p>
+        <p><img class="img_small" src="img/image-15_small.png" alt="サウンドエディタ"></p>
+        <p>いろいろ便利な機能がついている！</p>
+        <h1 id="黒い画面を出してみよう">黒い画面を出してみよう</h1>
+        <p>はじめてpyxelを実行するので、first_pyxel.pyというpythonファイルを作成しよう。</p>
+        <p>まずはとにもかくにも、ゲームの画面（枠）を出すコードを、そのまま打ち込んでみよう。</p>
+        <pre data-role="codeBlock" data-info="python" class="language-python python"><code>import pyxel
+
+pyxel.init(160, 120, title=&quot;pyxel training&quot;)
+pyxel.show()
+</code><button class="copy-btn" onclick="copyCode(this)">copy</button></pre>
+        <p>実行してみて黒い画面が表示されたらOK!</p>
+        <p><img class="img_big" src="img/image-17_big.png" alt="pyxelの黒い画面"></p>
+        <p>３行しかないので、それぞれに書かれていることを整理してみよう。</p>
+        <h2 id="1行目import-pyxel">1行目：import pyxel</h2>
+        <p>pyxel っていう機能を、pythonコード内で使えるようにするよ！という意味。</p>
+        <h2 id="2行目pyxelinit160-120-titlepyxel-training">2行目：pyxel.init(160, 120, title=&quot;pyxel training&quot;)</h2>
+        <p>このinit関数は、pyxelを使うときに必ず書かなくちゃいけないやつなんだけど、第一引数、第二引数の数字が何を意味しているか、想像できるかな？そう、画面の大きさを指定しているんだよね。<br />
+        つまりこの関数は</p>
+        <pre data-role="codeBlock" data-info="python" class="language-python python"><code>pyxel.init(画面の横幅, 画面の縦幅, title=&quot;ゲームのタイトル&quot;)
+</code></pre>
+        <p>って感じ。</p>
+        <h3 id="参考アスペクト比について">参考：アスペクト比について</h3>
+        <p>みんなが遊んでるゲーム機やモニターの画面って、正方形じゃないよね。大体の画面は横長にできていて、その横：縦の比率は４：３や１６：９が多い。この比率をアスペクト比っていうんだけど、将来YouTuberになって動画編集をしたかったり、開発したゲームをみんなに遊んでもらいたい、ってなったときに、間違ったアスペクト比で作ってしまうと、ゲームの端っこのアイテムが表示されなかったりして、思わぬところでうまくいかなかったりするから、今のうちから意識しとくといいかも！</p>
+        <h2 id="3行目pyxelshow">3行目：pyxel.show()</h2>
+        <p>pyxel.show()は、画面を表示するための関数。これが実行されると、Escキーが押されるまでpyxelの処理が止まるよ。今回はアニメーションを作るわけじゃないからshow()を使うけど、ゲームに動きをつけたいときは別の関数を使うのでお楽しみに。</p>
+        <p>とりあえず画面を表示できたけど、まだ画面内に何かを表示する処理を書いてないので、真っ黒な画面が出ているだけ。</p>
+        <h1 id="pyxelでお絵かきしよう1-図形を描画してみよう">pyxelでお絵かきしよう①　図形を描画してみよう</h1>
+        <p>pyxelには線を引いたり、四角や三角などの図形を描いたりする関数が用意されているから、早速使ってお絵かきしていこう！</p>
+        <p>と言いたいところだけど、その前にちょっと説明しときたいことがあるからちょっと待って！</p>
+        <h2 id="x座標y座標-画面内での位置を指定する方法">ｘ座標・ｙ座標 画面内での位置を指定する方法</h2>
+        <p>画面の一番左上の点をｘ座標 = 0,ｙ座標 = 0として、右に行くほどｘ座標が増えていって、下に下がるほどｙ座標が増えていく仕組みを使って、位置を表すことができる。これによって、たとえば画面上に直線を引きたいときに、「どこから」「どこまで」の直線を引くかを指定することができるよ</p>
+        <p><img class="img_small" src="img/image-18_small.png" alt="座標"></p>
+        <h2 id="pyxelでの色の使い方">pyxelでの色の使い方</h2>
+        <p>pyxelでは、デフォルトでは指定された１６色の色だけを使うことができる（それ以外の色を使う方法もあるんだけど、また後ほど。）<br />
+        それぞれの色には０から１５までの番号が振ってあって、その番号を指定して色を出す仕組みになってるよ</p>
+        <p><img class="img_small" src="img/image-19_small.png" alt="色"></p>
+        <p>「え？１６色だけ？」って思ったそこのアナタ！余談だけど、昔のゲームボーイとかは、４段階の濃さの黒（無色・薄い・ちょっと濃い・濃い）だけで、ポケモン（当時は１５１匹）を表現して描き分けていたって思うと、ヤバくない？</p>
+        <p><img class="img_small" src="img/image-copy_small.png" alt="昔のポケモン"></p>
+        <h2 id="直線を描画してみよう">直線を描画してみよう</h2>
+        <p>前置きが長くなったので、そろそろpyxelでお絵かきしようか！<br>
+        まず手始めに、直線を描画（びょうが）してみようか！（画面上に出すことを、描画といいます）</p>
+        <p>画面を表示したあとに線を引いても、その線は反映されないので、線を引く関数はshow()関数の前に書くよ！</p>
+        <pre data-role="codeBlock" data-info="python" class="language-python python"><code>import pyxel
+
+pyxel.init(160, 120, title=&quot;pyxel training&quot;)
+
+# (10, 20)の座標から（80, 20）まで,赤色（8番）の線を引く
+pyxel.line(10, 20, 80, 20, 8)
+
+pyxel.show()
+</code><button class="copy-btn" onclick="copyCode(this)">copy</button></pre>
+        <p>実行するとこんな感じ！</p>
+        <p><img class="img_big" src="img/image-20_big.png" alt="直線を描画した画面"></p>
+        <h2 id="いろんな図形を描画してみよう">いろんな図形を描画してみよう</h2>
+        <p>線を引く以外にも、描画をする関数がたくさんあるよ！コードにコメントと一緒に書いておくから、試してみたい関数を書いてみよう。引数をアレンジして、色を変えたり、サイズを変更したりしてみよう。</p>
+        <pre data-role="codeBlock" data-info="python" class="language-python python"><code>import pyxel
+
+pyxel.init(160, 120, title=&quot;pyxel training&quot;)
+
+# 線を引く：（始点のｘ, 始点のｙ, 終点のｘ, 終点のｙ, 色番号 ）
+pyxel.line(10, 20, 80, 20, 8)
+
+# 点をうつ：（ｘ, y, 色番号）
+pyxel.pset(10, 10, 7)
+
+# 円を描画（中心のｘ, 中心のｙ, 半径, 色番号）
+pyxel.circ(20, 50, 10, 11)
+
+# 円の枠（円周）を描画：（中心のｘ, 中心のｙ, 半径, 色番号）
+pyxel.circb(50, 50, 10, 11)
+
+# 四角を描画：（左上のｘ, 左上のy, 幅, 高さ, 色番号）
+pyxel.rect(10, 80, 20, 10, 13)
+
+# 四角の枠を描画：（左上のｘ, 左上のy, 幅, 高さ, 色番号）
+pyxel.rectb(40, 80, 20, 10, 13)
+
+# 三角形を描画：（点１のx, 点１のy, 点２のx, 点２のｙ, 点３のx, 点３のｙ, 色番号）
+pyxel.tri(80, 40, 80, 60, 100, 60, 15)
+
+# 三角形の枠を描画：（点１のx, 点１のy, 点２のx, 点２のｙ, 点３のx, 点３のｙ, 色番号）
+pyxel.trib(120, 40, 120, 60, 140, 60, 15)
+
+pyxel.show()
+</code><button class="copy-btn" onclick="copyCode(this)">copy</button></pre>
+        <p><img class="img_big" src="img/image-21_big.png" alt="いろんな図形を描画した画面"></p>
+        <p>ちなみに、英語で<br />
+        line = ライン：線<br />
+        circle = サークル：円<br />
+        rectangle = レクタングル：長方形<br />
+        triangle = トライアングル：三角形<br />
+        pyxelの関数名はこれらを短縮したもので、枠線の関数にbがついているのは、border(境界線・枠線)のb。</p>
+        <h1 id="練習問題">練習問題</h1>
+        <h2 id="練習問題7">練習問題⑦</h2>
+        <p>以下の条件で描画してみよう。必要な計算はすべてpythonで計算する（自分で計算しない）こと。</p>
+        <pre data-role="codeBlock" data-info="" class="language-text"><code>画面の端から１０ずつ離れたところから、画面の中心に向かって線を引く
+画面サイズは160 x 120
+</code></pre>
+        <p><img class="img_big" src="img/image_22_big.png" alt="練習問題⑦の完成図"></p>
+        <details>
+        <summary>ヒント</summary>
+        <p>変数を活用しよう</p>
+        </details>
+        <h2 id="練習問題8">練習問題⑧</h2>
+        <p>以下の図形を描画してみよう</p>
+        <pre data-role="codeBlock" data-info="" class="language-text"><code>中心に２０ｘ２０の正方形の枠を書いて、そこから２ピクセルずつ上下左右に大きい正方形を4つ描く。
+</code></pre>
+        <p><img class="img_big" src="img/image-23_big.png" alt="練習問題⑧の完成図"></p>
+        <details>
+        <summary>ヒント</summary>
+        <p>おんなじことの繰り返し・・・ということは？</p>
+        </details>
+        <h1 id="pyxelでお絵かきしよう2-キャラデザをしてみよう">pyxelでお絵かきしよう②　キャラデザをしてみよう</h1>
+        <p>四角や三角がプログラムで作成できるのはわかったけど、これだけでマリオみたいなキャラクターを描いたりするのは超大変。でも大丈夫、さっきも言った通り、pyxelにはお絵かきするためのツールが用意されているよ</p>
+        <p>みんなが知っているような大規模なゲームタイトルは、チームや組織で作ることがほとんど。みんな役割が決まっていて、プログラミングをする人や、キャラデザを考える人、アニメーションをつくる人、音楽をつくる人、販売をする人、広告をつくる人・・・ほんとにいろんな人がゲームに関わって、みんなの元に届いています。</p>
+        <p>個人でゲームを開発するとなると、基本的にそれらを一人でやらなくちゃいけないけど、逆にいうと全部を自分の思い通りにできる！その意味では、ゲーム作りの醍醐味とも言えるよね。</p>
+        <p>絵が不得意だったり、音楽なんて作ったことないし、という不安もあると思う。でも大丈夫。Pyxelはそういう人でも絵を書いたり音楽が作れるツールを用意してくれているし、何よりドット絵やレトロゲーム風の音しか使えなくて、アイディア次第でいろんな絵や音楽が作れるよ！</p>
+        <h2 id="pyxel-editorとは">pyxel editorとは</h2>
+        <p>pyxel editorは、pyxelのゲーム制作で必要になる画像や音楽を自分で作れるツール。Pyxelライブラリに標準で搭載されていて、Pyxel上で絵を書いたり、背景を描いたり、音楽や効果音を作ることができるよ！</p>
+        <h1 id="pyxel-editorの使い方">pyxel editorの使い方</h1>
+        <h2 id="pyxel-editorの起動方法">pyxel editorの起動方法</h2>
+        <p>pyxel editorを使うためには、pyxres(パイグレス。。。って読むと思うｗ)という拡張子のファイルを作る必要があるよ。このpyxresファイルには、作成した音楽や画像の情報が入っていて、使いたいときにそれぞれのファイル名を指定して、その中の画像の１番、効果音の２番を使う！というように指定するよ。</p>
+        <p>以下のコマンドで、指定したファイル名をもとにpyxel editorを開くよ。pyxresファイルがまだ作成されていない場合は、指定した場所（パス）に自動でpyxresファイルが作成されるよ。</p>
+        <pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>pyxel edit ＜指定のパス＞
+</code></pre>
+        <p>今回はcharacterというファイル名にしよう</p>
+        <pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>pyxel edit character
+</code></pre>
+        <h2 id="pyxel-editorの画面について">pyxel editorの画面について</h2>
+        <p>pyxel editorには次の４つの機能があるよ</p>
+        <table>
+        <tr>
+        <td>イメージエディタ</td>
+        <td>キャラクターなどのパーツとしての絵を作成できる</td>
+        </tr>
+        <tr>
+        <td>タイルマップエディタ</td>
+        <td>ゲームのステージ絵を作成できる</td>
+        </tr>
+        <tr>
+        <td>サウンドエディタ</td>
+        <td>効果音を作成できる</td>
+        </tr>
+        <tr>
+        <td>ミュージックエディタ</td>
+        <td>音楽を作成できる</td>
+        </tr>
+        </table>
+        <h2 id="イメージバンク">イメージバンク</h2>
+        <p>イメージバンクは、ドット絵を入れておけるところ。一つのpyxresファイルにつき、3つの画像をいれることができるよ。</p>
+        <h3 id="ドット絵ピクセルアートを書くコツ">ドット絵（＝ピクセルアート）を書くコツ</h3>
+        <p>桜井政博のゲームをつくるには「ドット絵の初歩的な話」</p>
+        <iframe src="https://www.youtube.com/embed/-t2Y09ns0IY?si=ZbXgCSE0VshxJHcL" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <h3 id="イメージエディタの画面構成">イメージエディタの画面構成</h3>
+        <p><img class="img_small" src="img/image-editor_small.png" alt="イメージエディタ"></p>
+        <table>
+        <tr>
+        <td>名前</td>
+        <td>役割</td>
+        </tr>
+        <tr>
+        <td>①イメージキャンバス</td>
+        <td>実際にドット絵を書くところ</td>
+        </tr>
+        <tr>
+        <td>②イメージバンクビュー</td>
+        <td>イメージの全体像を表示<br>実際のドットの大きさで表示される</td>
+        </tr>
+        <tr>
+        <td>③ツールパレット</td>
+        <td>色を変えたり、直線や四角形、円を書くためのツールがある</td>
+        </tr>
+        </table>
+        <p>右下のボタンは、イメージバンクの番号を切り替えるボタン</p>
+        <h2 id="注意セーブは忘れずに">注意：セーブは忘れずに！</h2>
+        <p>みんなが今使っているvscodeは自動保存になっているのでついつい忘れがちだけど、pyxel editorで書いた絵は <strong>保存ボタンを押すか、ctrl + s で保存しないと消えます！</strong>　＼(^o^)／ｵﾜﾀ ってならないように気をつけよう</p>
+        <h1 id="pyxel-editorで描いた絵を表示させよう">pyxel editorで描いた絵を表示させよう</h1>
+        <p>まずは、pyxelプログラムを書くための雛形を書いちゃおう。コピペOK。</p>
+        <pre data-role="codeBlock" data-info="python" class="language-python python"><code>import pyxel
+
+
+pyxel.init(200, 200)
+
+def update():
+    pass
+
+def draw():
+    pyxel.cls(0)
+
+
+pyxel.run(update, draw)
+</code><button class="copy-btn" onclick="copyCode(this)">copy</button></pre>
+        <p>このコードに、pyxel editorで描いたものを表示させるコードを追加していくよ。<br />
+        vscodeのエクスプローラにあるcharacter.pyxresというファイルを、pythonファイルで使えるようにしなくちゃいけない（ロード）</p>
+        <pre data-role="codeBlock" data-info="python" class="language-python python"><code>pyxel.load(&quot;character.pyxres&quot;)
+</code><button class="copy-btn" onclick="copyCode(this)">copy</button></pre>
+        <p>そして、この絵を表示する処理を、draw()関数の中に描いていくんだけど、その時に</p>
+        <ul>
+        <li>どの画像を表示するか（イメージバンクの何番目の画像を表示するか）</li>
+        <li>画像のどの部分を表示するか（画像の座標）</li>
+        <li>画面のどこ（座標）に表示するか</li>
+        <li>透過（透明）にしたい色</li>
+        </ul>
+        <p>を、正しくdraw関数に伝えてあげる必要がある。</p>
+        <p>関数にデータを渡してあげるには、 <strong>引数</strong> っていうやつを使えばいいんだったね。ｘが１０、ｙが１０のところに、キャラクターを表示してみよう。</p>
+        <pre data-role="codeBlock" data-info="python" class="language-python python"><code>import pyxel
+
+pyxel.init(200, 200)
+# character.pyxresファイルをロード(読み込み)
+pyxel.load(&quot;character.pyxres&quot;)
+def update():
+    pass
+
+def draw():
+    # 画面上の（10, 10）の座標に、イメージバンクの0番目の画像のx＝０，　ｙ＝０の位置から、16x16ピクセルで、黒（0番）を透明にして表示
+    pyxel.blt(10, 10, 0, 0, 0, 16, 16, 0)
+
+pyxel.run(update, draw)
+</code><button class="copy-btn" onclick="copyCode(this)">copy</button></pre>
+        <p>できたら実行してみよう</p>
+        <p><img class="img_big" src="img/リッキーマン_big.png" alt="リッキーマンを表示した画面"></p>
+        <h1 id="update関数とdraw関数">update関数とdraw関数</h1>
+        <p><img class="img_top" src="img/pyxel_cycle_top.svg" alt="update関数とdraw関数の繰り返し"></p>
+        <p>それぞれ違う役割を持っているので、確認してみよう。</p>
+        <h2 id="update">update()</h2>
+        <p>update=アップデート、更新という意味<br />
+        この関数は、フレームが移り変わっていくときに変更する処理を書いておく関数。<br />
+        今回はアニメーションを作るので、キャラクターの座標を変更する処理をここに書くよ</p>
+        <h2 id="draw">draw()</h2>
+        <p>draw=ドロー：描く、描画するという意味<br />
+        図形を描画する処理を書くところ</p>
+        <p>cls()関数で画面を真っ黒にする<br />
+        update()関数で座標情報などを更新して<br />
+        draw()関数で描画</p>
+        <p>これをゲーム終了まで繰り返すから、パラパラ漫画のようにキャラを動かしたりできるわけだ。※それをやっているのが一番下の方にあるpyxel.run(update, draw)</p>
+        <h1 id="キャラクターを動かしてみよう">キャラクターを動かしてみよう</h1>
+        <p>さて、↓のコードとにらめっこしてみよう。</p>
+        <pre data-role="codeBlock" data-info="python" class="language-python python"><code>import pyxel
+
+pyxel.init(200, 200)
+# character.pyxresファイルをロード(読み込み)
+pyxel.load(&quot;character.pyxres&quot;)
+def update():
+    pass
+
+def draw():
+    # 画面上の（10, 10）の座標に、イメージバンクの0番目の画像のx＝０，　ｙ＝０の位置から、16x16ピクセルで、黒（0番）を透明にして表示
+    pyxel.blt(10, 10, 0, 0, 0, 16, 16, 0)
+
+pyxel.run(update, draw)
+</code><button class="copy-btn" onclick="copyCode(this)">copy</button></pre>
+        <p>このコードで、キャラクターのｘ座標＝横位置を決めているのは、blt()関数の一番最初の引数(一番最初の10の部分)。ここの数字を変えることができれば、キャラクターを動かすことができそう。</p>
+        <p>プログラム実行中にキャラクターのステータスとか位置情報とかを変更するには、 <strong>update</strong>関数を使う。<br />
+        まず、update関数で変更する用の変数を辞書型で用意して、そのデータのなかからx座標の数値をupdate関数で変更するようにしよう。<br />
+        そして、draw関数でも、update関数の変更を反映させられるように、x軸の引数を１０に固定していたところを、 <code>character_info[&quot;x&quot;]</code> としよう。</p>
+        <pre data-role="codeBlock" data-info="python" class="language-python python"><code>import pyxel
+
+character_info = {
+    &quot;x&quot;: 10
+}
+
+pyxel.init(200, 200)
+# character.pyxresファイルをロード(読み込み)
+pyxel.load(&quot;character.pyxres&quot;)
+def update():
+    character_info[&quot;x&quot;] = character_info[&quot;x&quot;] + 1
+
+def draw():
+    # 画面を黒で塗りつぶす（前のフレームの絵を消す）
+    pyxel.cls(0)
+    # 画面上の（character_info[&quot;x&quot;], 10）の座標に、イメージバンクの0番目の画像のx＝０，　ｙ＝０の位置から、16x16ピクセルで、黒（0番）を透明にして表示
+    pyxel.blt(character_info[&quot;x&quot;], 10, 0, 0, 0, 16, 16, 0)
+
+pyxel.run(update, draw)
+</code><button class="copy-btn" onclick="copyCode(this)">copy</button></pre>
+        <p>さて、どうなるか。</p>
+        <p><img class="img_big" src="img/move_character_big.gif" alt="キャラクターが右に動く様子"></p>
+        <p>こいつ。。。動くぞ！</p>
+        <h1 id="いろんな方向に動かしてみよう">いろんな方向に動かしてみよう</h1>
+        <p>さっきは右方向に移動するだけだったので、 <code>character_info[&quot;x&quot;]</code> を、１増やすだけだったけど、</p>
+        <ul>
+        <li>左に動かすには？</li>
+        <li>上下に動かすには？</li>
+        <li>斜めに動かすには？</li>
+        </ul>
+        <p>いろいろ考えてみよう。</p>
+        <h1 id="ジャンプさせてみよう">ジャンプさせてみよう</h1>
+        <p>ジャンプするってことは、どういうことかを考えてみる</p>
+        <ul>
+        <li>ジャンプし始めと、ジャンプし終わりは、スピードが早くて、高くなるにつれてゆっくりになる。</li>
+        <li>ジャンプした場所と同じ場所に戻ってきたら、地面があるので止まる</li>
+        </ul>
+        <h2 id="ジャンプ機能を実装したコード">ジャンプ機能を実装したコード</h2>
+        <pre data-role="codeBlock" data-info="python" class="language-python python"><code>import pyxel
+
+character_info = {
+    &quot;x&quot;: 10,
+    &quot;y&quot;: 150,              # 地面の高さ
+    &quot;jump&quot;: 10,            # ジャンプの速さ（1回のupdateで上に動く量）
+    &quot;jump_status&quot;: False   # ジャンプ中ならTrue
+}
+
+pyxel.init(200, 200)
+# character.pyxresファイルをロード(読み込み)
+pyxel.load(&quot;character.pyxres&quot;)
+def update():
+    # 地面にいるとき（ジャンプの速さが最初の10のとき）だけ、スペースキーでジャンプを始める
+    if character_info[&quot;jump&quot;] == 10:
+        if pyxel.btnp(pyxel.KEY_SPACE):
+            character_info[&quot;jump_status&quot;] = True
+
+    # ジャンプ中の処理
+    if character_info[&quot;jump_status&quot;] == True:
+        # ジャンプの速さの分だけ上に動かす（速さがマイナスになると下に落ちる）
+        character_info[&quot;y&quot;] = character_info[&quot;y&quot;] - character_info[&quot;jump&quot;]
+        # 地面より下に行ったら、地面に戻してジャンプ終了
+        if character_info[&quot;y&quot;] &gt; 150:
+            character_info[&quot;y&quot;] = 150
+            character_info[&quot;jump_status&quot;] = False
+            character_info[&quot;jump&quot;] = 10
+        # まだ空中にいるときは、ジャンプの速さを1ずつ減らす（だんだんゆっくり上がって、落ちてくる）
+        else:
+            character_info[&quot;jump&quot;] = character_info[&quot;jump&quot;] - 1
+
+def draw():
+    pyxel.cls(0)
+    # 画面上の（character_info[&quot;x&quot;], character_info[&quot;y&quot;]）の座標に、イメージバンクの0番目の画像のx＝０，　ｙ＝０の位置から、16x16ピクセルで、黒（0番）を透明にして表示
+    pyxel.blt(character_info[&quot;x&quot;], character_info[&quot;y&quot;], 0, 0, 0, 16, 16, 0)
+
+pyxel.run(update, draw)
+</code><button class="copy-btn" onclick="copyCode(this)">copy</button></pre>
+        <p><img class="img_big" src="img/jump_big.gif" alt="キャラクターがジャンプする様子"></p>
+
+    </div>
+
+    <script src="../js/script.js"></script>
+</body>
+
+</html>

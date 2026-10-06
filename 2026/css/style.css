@@ -1006,6 +1006,18 @@ header ul li.ref-menu-item .ref-menu-panel li {
     }
 }
 
+/* 本文の段落の前後に余白を取り、段落の区切りを読みやすくする。
+   画像だけを囲む段落は、画像側の余白（前後1.5em）に任せる。 */
+.markdown-preview p {
+    margin-top: 0.8em;
+    margin-bottom: 0.8em;
+}
+
+.markdown-preview p:has(> img) {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
 /* 教材画像はDiscord Bot章と同じ3段階の表示幅に統一する。 */
 .markdown-preview p > img {
     display: block;
@@ -1037,6 +1049,16 @@ header ul li.ref-menu-item .ref-menu-panel li {
     width: 50%;
 }
 
+/* 本文内に埋め込んだ動画（YouTubeなど）は、img_bigと同じ幅の16:9で中央に表示する。 */
+.markdown-preview iframe {
+    display: block;
+    width: 70%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    margin: 1.5em auto;
+    border: 0;
+}
+
 @media screen and (max-width: 600px) {
     .markdown-preview img:not(.img_top):not(.img_big):not(.img_small),
     .img_top,
@@ -1044,6 +1066,10 @@ header ul li.ref-menu-item .ref-menu-panel li {
     .img_small {
         width: auto;
         max-width: 100%;
+    }
+
+    .markdown-preview iframe {
+        width: 100%;
     }
 }
 
